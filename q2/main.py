@@ -1,7 +1,7 @@
 import json
 
 class UserManager():
-    def __init__(self):
+    def __init__ (self):
         self.users = {}
         #添加用户
     def add_user(self,name,age):
@@ -42,10 +42,19 @@ class UserManager():
             return False
         #列出所有用户
     def list_user(self):
-        self.all_users =[]
+        self.all_users = []
         for id in self.users:
             self.all_users.append(self.users[id])
-        print(self.all_users)    
+        print(self.all_users)
+        #将所有用户保存为JSON文件
+    def save_to_json(self,filename):
+        with open(f"./{filename}","w",encoding="utf-8") as f:
+            json.dump(self.all_users,f,ensure_ascii=False)
+        #从JSON文件加载用户,覆盖当前数据(未完成，需要解决获取id的问题)
+    def load_from_json(self,filename):
+        with open(f"./{filename}","r",encoding="utf-8") as f:
+           print(self.all_users)
+
 
 
 
@@ -67,5 +76,8 @@ um.update_age(1,19)
 um.remove_user(2)
 um.remove_user(2)
 um.list_user()
-
+um.save_to_json("users.json")
+um2 = UserManager()
+um2.load_from_json("users.json")
+um2.list_user()
 
