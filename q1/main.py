@@ -1,5 +1,5 @@
 import json 
-filepath = "C:/qz2026-xhn789/q1/test.jsonl"
+# filepath = "C:/qz2026-xhn789/q1/test.jsonl"
 def analyze_log(filepath:str) -> dict:
     total=0
     by_level = {}
@@ -11,9 +11,9 @@ def analyze_log(filepath:str) -> dict:
             for line in f:
                 try:
                     line = json.loads(line)
-                except :
+                except:
                     continue
-                else :
+                else:
                     #读取和获得想要数据
                     total += 1 
                     level = line["level"]
@@ -23,31 +23,23 @@ def analyze_log(filepath:str) -> dict:
                     if line["level"] == "ERROR":
                         last_error = line["message"]
     #文件未找到时
-    except FileNotFoundError :
+    except FileNotFoundError:
         return result
-
-
-        
-               
-            
-    else :
-        
+    else:
         result["total"] = total
         result["by_level"] = by_level
         result["by_user"] = by_user
         result["last_error"] = last_error
         return result
             
+# result = analyze_log(filepath)
+# print(result["total"])        # 5
+# print(result["by_level"])     # {'INFO': 3, 'ERROR': 2}
+# print(result["by_user"])      # {'张三': 2, '李四': 2, '王五': 1}
+# print(result["last_error"])   # 超时
 
+# result = analyze_log("C:/qz2026-xhn789/q1/test_empty.jsonl")
+# print(result)
 
-result = analyze_log(filepath)
-print(result["total"])        # 5
-print(result["by_level"])     # {'INFO': 3, 'ERROR': 2}
-print(result["by_user"])      # {'张三': 2, '李四': 2, '王五': 1}
-print(result["last_error"])   # 超时
-
-result = analyze_log("C:/qz2026-xhn789/q1/test_empty.jsonl")
-print(result)
-
-result = analyze_log("C:\\qz2026-xhn789\\q1\\text_wrong.jsonl")
-print(result)
+# result = analyze_log("C:\\qz2026-xhn789\\q1\\text_wrong.jsonl")
+# print(result)
