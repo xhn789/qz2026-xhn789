@@ -15,13 +15,18 @@ def analyze_log(filepath:str) -> dict:
                     continue
                 else:
                     #读取和获得想要数据
-                    total += 1 
-                    level = line["level"]
-                    user = line["user"]
-                    by_level[level] = by_level.get(level,0) + 1
-                    by_user[user] = by_user.get(user,0) + 1
-                    if line["level"] == "ERROR":
-                        last_error = line["message"]
+                    try:
+                        level = line["level"]
+                        user = line["user"]
+                       
+                        if line["level"] == "ERROR":
+                            last_error = line["message"]
+                    except:
+                        continue
+                    else:
+                        by_level[level] = by_level.get(level,0) + 1
+                        by_user[user] = by_user.get(user,0) + 1
+                        total += 1 
     #文件未找到时
     except FileNotFoundError:
         return result
